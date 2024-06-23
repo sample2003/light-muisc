@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sample.music.mapper.AlbumMapper">
+
+    <insert id="insertAlbumByOne">
+        insert into
+            album (title,artist_id,cover,description,release_date)
+        values (#{title},(select id from artist where name = #{artist}),#{cover},#{description},#{releaseDate})
+    </insert>
+    
+    <delete id="deleteAlbumById">
+        delete from album
+            where id = #{id}
+    </delete>
+
+    <update id="updateAlbumById">
+        update album
+        set
+            title = #{title},
+            artist_id = (select id from artist where name = #{artist}),
+            cover = #{cover},
+            description = #{description},
+            release_date = #{releaseDate}
+        where id = #{id}
+    </update>
+
+    <select id="selectAlbumById" resultType="com.sample.music.domain.po.Album">
+        select * from album;
+    </select>
+
+    <select id="selectAlbumByAll" resultType="com.sample.music.domain.po.Album">
+        select * from album;
+    </select>
+</mapper>

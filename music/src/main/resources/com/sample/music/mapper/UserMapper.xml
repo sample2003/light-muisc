@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sample.music.mapper.UserMapper">
+    <select id="findUserByUserName" resultType="com.sample.music.domain.po.User">
+        select * from user where username = #{username};
+    </select>
+    <select id="findUserByEmail" resultType="com.sample.music.domain.po.User">
+        select * from user where email = #{email};
+    </select>
+    <select id="findUserById" resultType="com.sample.music.domain.query.UserQuery">
+        select * from user where id = #{id};
+    </select>
+<!--    user(username, nickname, password, phone, sex, id_number, avatar, status, create_time, update_time)-->
+    <insert id="registerUser" parameterType="com.sample.music.domain.po.User">
+        <!-- 使用NOW()函数获取当前的时间戳 -->
+        INSERT INTO
+            user(email, username, password, create_time, update_time)
+        VALUES (#{email}, #{username}, #{password}, NOW(), NOW())
+        <!-- @SelectKey注解配置 -->
+        <selectKey keyProperty="id" resultType="long" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <!-- 假设user表的自增ID列名为id -->
+    <insert id="addUserRole">
+        INSERT INTO user_role(role_id, user_id)
+        VALUES (#{roleId}, #{userId}) <!-- 这里使用#{userId}来引用上面获取的ID -->
+    </insert>
+    <select id="findUserRole" resultType="long">
+        select role_id from user_role where user_id = #{userId}
+    </select>
+
+    <update id="updateUser">
+        UPDATE user
+        SET
+            username=#{user.username},
+            email=#{user.email},
+            phone=#{user.phone},
+            avatar=#{user.avatar},
+            update_time=NOW()
+        WHERE id=#{userId}
+    </update>
+
+    <update id="updatePwd">
+        UPDATE user
+        SET
+            password=#{newPassword},
+            update_time=NOW()
+        WHERE email=#{email}
+    </update>
+
+    <select id="isAdmin" resultType="long">
+        select role_id from user_role where user_id = #{userId};
+    </select>
+</mapper>

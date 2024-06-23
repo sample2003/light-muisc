@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sample.music.mapper.PlayListMapper">
+
+    <insert id="insertPlayListByOne" parameterType="java.util.List">
+        insert into playlist(user_id, title, create_time)
+        values(#{userId}, #{title}, #{createTime})
+    </insert>
+
+    <delete id="deletePlayListById">
+        delete from playlist where id = #{id}
+    </delete>
+
+    <update id="updatePlayListById">
+        update playlist set
+            title=#{title}, cover=#{cover}, description=#{description}
+        where id=#{id};
+    </update>
+
+
+    <select id="selectPlayListByAll" resultType="com.sample.music.domain.po.PlayList">
+        select * from playlist;
+    </select>
+
+    <select id="selectPlayListByPage" resultType="com.sample.music.domain.po.PlayList">
+        select * from playlist
+    </select>
+
+    <select id="selectPlayListById" resultType="com.sample.music.domain.po.PlayList">
+        select * from playlist where id = #{id};
+    </select>
+
+</mapper>

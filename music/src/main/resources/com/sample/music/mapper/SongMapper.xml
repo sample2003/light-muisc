@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sample.music.mapper.SongMapper">
+    <select id="part" resultType="com.sample.music.domain.po.Song">
+        select
+            song.id,
+            song.title,
+            artist.name AS artist,
+            album.title as album,
+            song.cover,
+            song.lyric,
+            song.url,
+            song.style,
+            song.release_date
+        from song, artist, album
+    </select>
+
+    <select id="selectSongsByCondition" resultType="com.sample.music.domain.po.Song">
+        SELECT
+            s.id,
+            s.title,
+            a.name AS artist,
+            al.title AS album,
+            s.lyric,
+            s.cover,
+            s.url,
+            s.style,
+            s.release_date
+        FROM
+            song s
+                JOIN
+            artist a ON s.artist_id = a.id
+                JOIN
+            album al ON s.album_id = al.id
+        WHERE
+            s.title LIKE CONCAT('%',#{value},'%')
+           OR
+            a.name LIKE CONCAT('%',#{value},'%')
+           OR
+            al.title LIKE CONCAT('%',#{value},'%');
+    </select>
+
+    <select id="selectSongById" resultType="com.sample.music.domain.po.Song">
+        select
+            song.*, artist.name as artist, album.title as album
+        from song,artist,album
+        where song.id = #{id}
+          and song.artist_id = artist.id
+          and song.album_id = album.id;
+    </select>
+
+    <insert id="insertSongWithFiles">
+        insert into
+            song(title,artist_id,album_id,url,cover,lyric,style,release_date)
+        values
+            (
+             #{title},
+             (select id from artist where name = #{artist}),
+             (select id from album where title = #{album}),
+             #{url},#{cover},#{lyric},#{style},#{releaseDate}
+             )
+    </insert>
+
+    <insert id="insertSongByMore" parameterType="java.util.List">
+        insert into song
+            (title,artist_id,album_id,url,cover,lyric,style,release_date)
+            values
+        <foreach item="song" index="index" collection="songs" separator=",">
+            (
+             #{song.title},
+             (select id from artist where name = #{song.artist}),
+             (select id from album where title = #{song.album}),
+             #{song.url},
+             #{song.cover},
+             #{song.lyric},
+             #{song.style},
+             #{song.releaseDate})
+        </foreach>
+    </insert>
+
+    <delete id="deleteSongById">
+        delete from song where id = #{id}
+    </delete>
+
+    <update id="updateSongById">
+        update song
+        set
+            title = #{title},
+            artist_id = (select id from artist where name = #{artist}),
+            cover = #{cover},
+            lyric = #{lyric},
+            album_id = (select id from album where title = #{album}),
+            style = #{style},
+            release_date = #{releaseDate}
+        where id = #{id}
+    </update>
+</mapper>

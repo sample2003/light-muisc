@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sample.music.mapper.RelateMapper">
+
+    <insert id="addSongsToPlayList">
+        insert into
+            relate (playlist_id, song_id)
+        values (#{playlist_id}, #{id})
+    </insert>
+    
+    <delete id="deleteSongsByPlayList">
+        delete from relate
+               WHERE playlist_id = #{playlist_id}
+                 AND song_id = #{id}
+    </delete>
+
+    <select id="selectSongsAllByPlayList" resultType="com.sample.music.domain.po.Song">
+        SELECT song.*, artist.name as artist, album.title as album
+            FROM song
+            JOIN artist ON song.artist_id = artist.id
+            JOIN album ON song.album_id = album.id
+            JOIN relate ON song.id = relate.song_id
+            WHERE relate.playlist_id = #{id}
+    </select>
+
+    <select id="selectSongsAllByAlbum" resultType="com.sample.music.domain.po.Song">
+        select
+            song.*,
+            artist.name as artist,
+            album.title as album
+        from song,artist,album
+            where song.album_id = #{id}
+              and song.artist_id = artist.id                                                                             and song.album_id =  album.id;
+    </select>
+</mapper>

@@ -1,0 +1,7 @@
+2024-06-23T09:06:05.999+08:00  INFO 2964 --- [music] [main] com.sample.music.MusicApplicationTests   : Starting MusicApplicationTests using Java 17.0.2 with PID 2964 (started by mianju in D:\study\code\work\flowing-light\music)
+2024-06-23T09:06:06.000+08:00 DEBUG 2964 --- [music] [main] com.sample.music.MusicApplicationTests   : Running with Spring Boot v3.2.4, Spring v6.1.5
+2024-06-23T09:06:06.002+08:00  INFO 2964 --- [music] [main] com.sample.music.MusicApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2024-06-23T09:06:06.910+08:00  INFO 2964 --- [music] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-06-23T09:06:06.914+08:00  INFO 2964 --- [music] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-06-23T09:06:06.965+08:00  INFO 2964 --- [music] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 0 Redis repository interfaces.
+2024-06-23T09:06:10.235+08:00  INFO 2964 --- [music] [main] com.sample.music.MusicApplicationTests   : Started MusicApplicationTests in 4.589 seconds (process running for 5.638)

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sample.music.mapper.ArtistMapper">
+    <insert id="insertArtistByOne">
+        insert into
+            artist(name,avatar,description,birthday)
+        values (#{name},#{avatar},#{description},#{birthday})
+    </insert>
+
+    <delete id="deleteArtistById">
+        delete from artist
+        where id = #{id}
+    </delete>
+
+    <update id="updateArtistById">
+        update artist
+        set
+            name = #{name},
+            avatar = #{avatar},
+            description = #{description},
+            birthday = #{birthday}
+        where id = #{id}
+    </update>
+
+    <select id="selectArtistById" resultType="com.sample.music.domain.po.Artist">
+        select * from artist;
+    </select>
+
+    <select id="selectArtistByAll" resultType="com.sample.music.domain.po.Artist">
+        select * from artist;
+    </select>
+</mapper>
