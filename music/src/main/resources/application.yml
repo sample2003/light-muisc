@@ -39,8 +39,8 @@ mybatis:
 aliyun:
   oss:
     endpoint: https://oss-cn-guangzhou.aliyuncs.com
-    accessKeyId: LTAI5tC71EnX6Tg7ceY3hr9o
-    accessKeySecret: 5WEWjuBDhgLHVbxdVrWy5CP8onj7rr
+    accessKeyId: 
+    accessKeySecret: 
     bucketName: cqt-test
     urlPrefix: https://cqt-test.oss-cn-guangzhou.aliyuncs.com/
     servlet:
